@@ -23,3 +23,4 @@ Start the Ghidra client and click on File -> New Project -> Shared Project -> Ne
 - Start server when container is started
 - Support port configuration
 - Support password configuration
+- Support macOS and Windows

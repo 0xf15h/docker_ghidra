@@ -10,6 +10,7 @@ docker run --network="host" -it -p 13100:13100 -e "HOST_USER=$USER" 0xf15h/ghidr
 # Once you're inside the container run the start script.
 ./start_server.sh
 ```
+The start server script might need to be executed more than once. When "1 command(s) queued" is output, the server has started correctly.
 
 ## Connecting to the Server
 Start the Ghidra client and click on File -> New Project -> Shared Project -> Next. The server name is localhost and the port is 13100. Click Next and a pop-up will appear. The default password is 'changeme'. The steps from this point forward are self explanatory. See the Ghidra documentation for further guidance.
@@ -18,6 +19,7 @@ Start the Ghidra client and click on File -> New Project -> Shared Project -> Ne
 - NSA's Research Directorate https://ghidra-sre.org/
 
 ## TODO
+- Execute the start server script once
 - Start server when container is started
 - Support port configuration
 - Support password configuration

@@ -5,7 +5,7 @@ Ghidra is a software reverse engineering suite of tools developed by the NSA. On
 ## Server Setup
 ```
 docker pull 0xf15h/ghidra
-# Windows users should replace $USER with your username.
+# Windows users should replace $USER with their username.
 docker run --network="host" -it -p 13100:13100 -e "HOST_USER=$USER" 0xf15h/ghidra
 # Once you're inside the container run the start script.
 ./start_server.sh

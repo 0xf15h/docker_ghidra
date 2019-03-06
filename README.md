@@ -5,7 +5,7 @@ Ghidra is a software reverse engineering suite of tools developed by the NSA. On
 ## Setup
 ```
 docker pull 0xf15h/ghidra
-docker run -it -p 13100:13100 0xf15h/ghidra
+docker run --network="host" -it -p 13100:13100 0xf15h/ghidra
 # Once you're inside the container run:
 ./start_server.sh
 ```

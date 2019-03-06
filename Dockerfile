@@ -35,6 +35,7 @@ RUN cd /home/ghidra && \
     echo '#!/bin/bash' > start_server.sh && \ 
     echo 'cd /home/ghidra/ghidra/server/' >> start_server.sh && \
     echo 'echo "password" | sudo -S "PATH=$PATH" ./ghidraSvr start' >> start_server.sh && \ 
+    echo 'sleep 5' >> start_server.sh && \
     echo 'echo "password" | sudo -S "PATH=$PATH" ./svrAdmin -add $HOST_USER' >> start_server.sh && \ 
     chmod 777 start_server.sh
 

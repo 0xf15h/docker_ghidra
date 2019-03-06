@@ -30,6 +30,11 @@ RUN cd /home/ghidra && \
     mv ghidra_${GHIDRA_VERSION} ghidra && \
     rm ghidra_${GHIDRA_VERSION}.zip
 
+# Create startup script.
+RUN cd /home/ghidra && \
+    echo -e '#!/bin/bash\n cd /home/ghidra/ghidra/server/ && echo "password" | sudo -S "PATH=$PATH" ./ghidraSvr start' > start_server.sh && \
+    chmod 777 start_server.sh
+
 # Create non-root user.
 RUN useradd -m ghidra && \
     adduser ghidra sudo && \
@@ -50,4 +55,5 @@ EXPOSE 13100
 
 # $ echo password | sudo -S "PATH=$PATH" /home/ghidra/ghidra/server/ghidraSvr start
 #ENTRYPOINT ["echo", "password", "|", "sudo", "-S", "\"PATH=$PATH\"", "/home/ghidra/ghidra/server/ghidraSvr", "start"]
-ENTRYPOINT ["/bin/echo password | /usr/bin/sudo -S \"PATH=$PATH\" /home/ghidra/ghidra/server/ghidraSvr start"]
+#ENTRYPOINT ["/home/ghidra/ghidra/server/ghidraSvr", "start"]
+#ENTRYPOINT [ "/home/ghidra/start_server.sh" ]

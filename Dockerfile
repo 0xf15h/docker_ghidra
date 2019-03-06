@@ -32,7 +32,10 @@ RUN cd /home/ghidra && \
 
 # Create startup script.
 RUN cd /home/ghidra && \
-    echo -e '#!/bin/bash\n cd /home/ghidra/ghidra/server/ && echo "password" | sudo -S "PATH=$PATH" ./ghidraSvr start' > start_server.sh && \
+    echo '#!/bin/bash' > start_server.sh && \ 
+    echo 'cd /home/ghidra/ghidra/server/' >> start_server.sh && \
+    echo 'echo "password" | sudo -S "PATH=$PATH" ./ghidraSvr start' >> start_server.sh && \ 
+    echo 'echo "password" | sudo -S "PATH=$PATH" ./svrAdmin -add $HOST_USER' >> start_server.sh && \ 
     chmod 777 start_server.sh
 
 # Create non-root user.
@@ -52,8 +55,3 @@ RUN cd /home/ghidra/ghidra/server && \
 
 # Ghidra's default port.
 EXPOSE 13100
-
-# $ echo password | sudo -S "PATH=$PATH" /home/ghidra/ghidra/server/ghidraSvr start
-#ENTRYPOINT ["echo", "password", "|", "sudo", "-S", "\"PATH=$PATH\"", "/home/ghidra/ghidra/server/ghidraSvr", "start"]
-#ENTRYPOINT ["/home/ghidra/ghidra/server/ghidraSvr", "start"]
-#ENTRYPOINT [ "/home/ghidra/start_server.sh" ]

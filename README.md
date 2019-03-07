@@ -15,6 +15,9 @@ The start server script might need to be executed more than once. When "1 comman
 ## Connecting to the Server
 Start the Ghidra client and click on File -> New Project -> Shared Project -> Next. The server name is localhost and the port is 13100. Click Next and a pop-up will appear. The default password is 'changeme'. The steps from this point forward are self explanatory. See the Ghidra documentation for further guidance.
 
+## Connecting over a LAN
+According to the documentation, the version tracking server needs to be configured with a DNS to serve users outside of localhost. This will be implemented over the weekend.
+
 ## Credits
 - NSA's Research Directorate https://ghidra-sre.org/
 

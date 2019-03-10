@@ -30,15 +30,6 @@ RUN cd /home/ghidra && \
     mv ghidra_${GHIDRA_VERSION} ghidra && \
     rm ghidra_${GHIDRA_VERSION}.zip
 
-# Create startup script.
-RUN cd /home/ghidra && \
-    echo '#!/bin/bash' > start_server.sh && \ 
-    echo 'cd /home/ghidra/ghidra/server/' >> start_server.sh && \
-    echo 'echo "password" | sudo -S "PATH=$PATH" ./ghidraSvr start' >> start_server.sh && \ 
-    echo 'sleep 5' >> start_server.sh && \
-    echo 'echo "password" | sudo -S "PATH=$PATH" ./svrAdmin -add $HOST_USER' >> start_server.sh && \ 
-    chmod 777 start_server.sh
-
 # Create non-root user.
 RUN useradd -m ghidra && \
     adduser ghidra sudo && \
@@ -54,5 +45,10 @@ ENV HOME /home/ghidra
 RUN cd /home/ghidra/ghidra/server && \
     echo password | sudo -S "PATH=$PATH" ./svrInstall
 
-# Ghidra's default port.
+# Ghidra's default ports.
 EXPOSE 13100
+EXPOSE 13101
+EXPOSE 13102
+
+COPY --chown=ghidra:ghidra start_server.sh /home/ghidra/
+#ENTRYPOINT [ "./start_server.sh" ]

@@ -9,6 +9,7 @@ ENV GHIDRA_SHA_256 3b65d29024b9decdbb1148b12fe87bcb7f3a6a56ff38475f5dc9dd1cfc7fd
 
 ENV JAVA_11_URL https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
 ENV JAVA_DIR_NAME jdk-11.0.2
+ENV JAVA_HOME /usr/lib/jvm/${JAVA_DIR_NAME}
 
 # Create ghidra user.
 RUN useradd -m ghidra && \
@@ -58,3 +59,4 @@ EXPOSE 13101
 EXPOSE 13102
 
 COPY --chown=ghidra:ghidra start_server.sh /home/ghidra/
+ENTRYPOINT [ "./start_server.sh" ]

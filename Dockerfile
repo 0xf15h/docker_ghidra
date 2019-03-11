@@ -68,4 +68,4 @@ EXPOSE 13101
 EXPOSE 13102
 
 COPY --chown=ghidra:ghidra start_server.sh /home/ghidra
-ENTRYPOINT [ "/bin/bash", "-c", "source /home/ghidra/start_server.sh" ]
+ENTRYPOINT [ "./start_server.sh" ]

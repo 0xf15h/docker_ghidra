@@ -48,7 +48,7 @@ VOLUME ${GHIDRA_REPOS_PATH}
 # Install Ghidra server.
 RUN cd ${GHIDRA_INSTALL_PATH}/ghidra/server && \
     cp server.conf server.conf.bak && \
-    sed 's/ghidra.repositories.dir=.*/ghidra.repositories.dir='"${GHIDRA_REPOS_PATH}"'/' server.conf.bak > server.conf && \
+    sed 's|ghidra.repositories.dir=.*|ghidra.repositories.dir='"${GHIDRA_REPOS_PATH}"'|' server.conf.bak > server.conf && \
     echo password | sudo -S "PATH=$PATH" ${GHIDRA_INSTALL_PATH}/ghidra/server/svrInstall && \
     cd /home/ghidra && \
     ln -s ${GHIDRA_INSTALL_PATH}/ghidra/server/svrAdmin svrAdmin && \

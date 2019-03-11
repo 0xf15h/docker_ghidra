@@ -4,7 +4,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ENV GHIDRA_REPOS_PATH /svr/repositories
 ENV GHIDRA_INSTALL_PATH /opt
-
 ENV GHIDRA_VERSION 9.0
 ENV GHIDRA_SHA_256 3b65d29024b9decdbb1148b12fe87bcb7f3a6a56ff38475f5dc9dd1cfc7fd6b2
 
@@ -31,7 +30,7 @@ RUN cd /home/ghidra && \
     tar -xzf openjdk.tar.gz --directory /usr/lib/jvm && \
     rm openjdk.tar.gz && \
     echo "/usr/lib/jvm/${JAVA_DIR_NAME}/bin:${PATH}" > /etc/environment
-ENV PATH "/usr/lib/jvm/${JAVA_DIR_NAME}/bin/:${PATH}"
+ENV PATH "/usr/lib/jvm/${JAVA_DIR_NAME}/bin:${PATH}"
 
 # Get Ghidra.
 RUN cd ${GHIDRA_INSTALL_PATH} && \
@@ -43,7 +42,7 @@ RUN cd ${GHIDRA_INSTALL_PATH} && \
     chown -R ghidra: ${GHIDRA_INSTALL_PATH}/ghidra
 
 # Setup Ghidra's version tracking repositories volume.
-#VOLUME /svr/repositories
+VOLUME ${GHIDRA_REPOS_PATH}
 
 # Install Ghidra server.
 RUN echo password | sudo -S "PATH=$PATH" ${GHIDRA_INSTALL_PATH}/ghidra/server/svrInstall

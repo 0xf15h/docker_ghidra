@@ -52,9 +52,10 @@ RUN cd ${GHIDRA_INSTALL_PATH}/ghidra/server && \
     echo password | sudo -S "PATH=$PATH" ${GHIDRA_INSTALL_PATH}/ghidra/server/svrInstall && \
     cd /home/ghidra && \
     ln -s ${GHIDRA_INSTALL_PATH}/ghidra/server/svrAdmin svrAdmin && \
+    ln -s ${GHIDRA_INSTALL_PATH}/ghidra/server/server.conf server.conf && \
     ln -s ${GHIDRA_INSTALL_PATH}/ghidra/server/svrInstall svrInstall && \
     ln -s ${GHIDRA_INSTALL_PATH}/ghidra/server/svrUninstall svrUninstall && \
-    ln -s ${GHIDRA_INSTALL_PATH}/ghidra/server/ghidraSvr ghidraSvr
+    ln -s ${GHIDRA_INSTALL_PATH}/ghidra/server/ghidraSvr ghidraSvr 
 
 # Setup user environment.
 USER ghidra
@@ -67,4 +68,4 @@ EXPOSE 13101
 EXPOSE 13102
 
 COPY --chown=ghidra:ghidra start_server.sh /home/ghidra
-ENTRYPOINT [ "./start_server.sh" ]
+ENTRYPOINT [ "/bin/bash", "-c", "source /home/ghidra/start_server.sh" ]

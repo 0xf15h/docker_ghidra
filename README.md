@@ -26,7 +26,7 @@ This Docker image is consistent with the offical documentation so admins can qui
 ## Changing the Default Password
 The password.txt file that is downloaded in the server setup step contains the environment variable that stores the Ghidra user's password. To change the password, open the file and add the new password to the NEW_PASSWORD variable. Run the container and then move the new password to the PASSWORD environment variable inside the password.txt file. 
 
-It's important to store the password in a file, as opposed to a command line argument, because it prevents exposure to logging systems (e.g. ~/.bash_history) and isn't easily available to other process's on the host.
+It's important to store the password in a file, as opposed to a command line argument, because it prevents exposure to logging systems (e.g. ~/.bash_history) and isn't easily available to other processes on the host.
 
 ## Setting Up a Remote Server
 According to the documentation, the version tracking server needs to be configured with a DNS that is configured for both forward and reverse lookups.

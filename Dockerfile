@@ -15,9 +15,7 @@ ENV JAVA_HOME /usr/lib/jvm/${JAVA_DIR_NAME}
 RUN useradd -m ghidra && \
     adduser ghidra sudo && \
     echo "ghidra:password" | chpasswd && \
-    usermod -aG sudo ghidra && \
-    mkdir -p ${GHIDRA_REPOS_PATH} && \
-    chown -R ghidra: ${GHIDRA_REPOS_PATH}
+    usermod -aG sudo ghidra
 
 RUN apt-get update && apt-get install -y \
     wget \
@@ -43,10 +41,20 @@ RUN cd ${GHIDRA_INSTALL_PATH} && \
     chown -R ghidra: ${GHIDRA_INSTALL_PATH}/ghidra
 
 # Setup Ghidra's version tracking repositories volume.
+RUN mkdir -p ${GHIDRA_REPOS_PATH} && \
+    chown -R ghidra: ${GHIDRA_REPOS_PATH}
 VOLUME ${GHIDRA_REPOS_PATH}
 
 # Install Ghidra server.
-RUN echo password | sudo -S "PATH=$PATH" ${GHIDRA_INSTALL_PATH}/ghidra/server/svrInstall
+RUN cd ${GHIDRA_INSTALL_PATH}/ghidra/server && \
+    cp server.conf server.conf.bak && \
+    sed 's/ghidra.repositories.dir=.*/ghidra.repositories.dir='"${GHIDRA_REPOS_PATH}"'/' server.conf.bak > server.conf && \
+    echo password | sudo -S "PATH=$PATH" ${GHIDRA_INSTALL_PATH}/ghidra/server/svrInstall && \
+    cd /home/ghidra && \
+    ln -s ${GHIDRA_INSTALL_PATH}/ghidra/server/svrAdmin svrAdmin && \
+    ln -s ${GHIDRA_INSTALL_PATH}/ghidra/server/svrInstall svrInstall && \
+    ln -s ${GHIDRA_INSTALL_PATH}/ghidra/server/svrUninstall svrUninstall && \
+    ln -s ${GHIDRA_INSTALL_PATH}/ghidra/server/ghidraSvr ghidraSvr
 
 # Setup user environment.
 USER ghidra
@@ -58,5 +66,5 @@ EXPOSE 13100
 EXPOSE 13101
 EXPOSE 13102
 
-COPY --chown=ghidra:ghidra start_server.sh /home/ghidra/
+COPY --chown=ghidra:ghidra start_server.sh /home/ghidra
 ENTRYPOINT [ "./start_server.sh" ]

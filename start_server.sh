@@ -1,6 +1,5 @@
 #!/bin/bash
 
-source .env
 new_password=true
 if [ -z $NEW_PASSWORD ]; then
     new_password=false

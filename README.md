@@ -6,7 +6,7 @@ Ghidra (pronounced Gee-druh) is a software reverse engineering suite of tools de
 ## Server Setup
 ```
 docker pull 0xf15h/ghidra
-wget https://raw.githubusercontent.com/0xf15h/docker_ghidra/master/password.txt
+curl -sO https://raw.githubusercontent.com/0xf15h/docker_ghidra/master/password.txt
 docker run --network="host" -it -p 13100:13100 --env-file password.txt 0xf15h/ghidra
 ```
 

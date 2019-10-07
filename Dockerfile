@@ -42,8 +42,6 @@ RUN cd ${GHIDRA_INSTALL_PATH}/ghidra/server && \
 
 VOLUME ${GHIDRA_REPOS_PATH}
 
-COPY --chown=ghidra:ghidra start_server.sh /home/ghidra
-
 # Setup user environment.
 USER ghidra
 WORKDIR /home/ghidra
@@ -54,4 +52,4 @@ EXPOSE 13100
 EXPOSE 13101
 EXPOSE 13102
 
-ENTRYPOINT [ "./start_server.sh" ]
+ENTRYPOINT ${GHIDRA_INSTALL_PATH}/ghidra/server/ghidraSvr console

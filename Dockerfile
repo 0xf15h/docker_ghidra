@@ -12,7 +12,8 @@ ENV GHIDRA_SHA_256 3d61de711b7ea18bdee3ed94c31429e4946603b3e7d082cca5e949bbd651f
 RUN addgroup -S ghidra && \
     adduser --disabled-password -S ghidra -G ghidra
 
-RUN apk add --update --no-cache wget \
+RUN apk add --update --no-cache \
+    wget \
     unzip \
     bash
 

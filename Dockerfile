@@ -2,7 +2,7 @@ FROM openjdk:14-jdk-alpine3.10
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-ENV GHIDRA_REPOS_PATH /svr/repositories
+ENV GHIDRA_REPOS_PATH /srv/repositories
 ENV GHIDRA_INSTALL_PATH /opt
 ENV GHIDRA_RELEASE_URL https://ghidra-sre.org/ghidra_9.1-BETA_DEV_20190923.zip
 ENV GHIDRA_VERSION 9.1-BETA_DEV

@@ -20,7 +20,7 @@ RUN apk add --update --no-cache \
 # Get Ghidra.
 WORKDIR ${GHIDRA_INSTALL_PATH}
 RUN wget --progress=bar:force -O ghidra_${GHIDRA_VERSION}.zip ${GHIDRA_RELEASE_URL} && \
-    echo "${GHIDRA_SHA_256}  ghidra_${GHIDRA_VERSION}.zip" | sha256sum -c - && \
+    echo "${GHIDRA_SHA_256}  ghidra_${GHIDRA_VERSION}.zip" | sha256sum -c && \
     unzip ghidra_${GHIDRA_VERSION}.zip && \
     mv ghidra_${GHIDRA_VERSION} ghidra && \
     rm ghidra_${GHIDRA_VERSION}.zip && \
@@ -31,7 +31,7 @@ RUN cd ${GHIDRA_INSTALL_PATH}/ghidra/server && \
     cp server.conf server.conf.bak && \
     mkdir -p ${GHIDRA_REPOS_PATH} && \
     sed 's|ghidra.repositories.dir=.*|ghidra.repositories.dir='"${GHIDRA_REPOS_PATH}"'|' server.conf.bak > server.conf && \
-    echo password | ${GHIDRA_INSTALL_PATH}/ghidra/server/svrInstall && \
+    ${GHIDRA_INSTALL_PATH}/ghidra/server/svrInstall && \
     chown -R ghidra: ${GHIDRA_REPOS_PATH} && \
     cd /home/ghidra && \
     ln -s ${GHIDRA_INSTALL_PATH}/ghidra/server/svrAdmin svrAdmin && \

@@ -1,40 +1,25 @@
-FROM ubuntu:18.04
+FROM openjdk:14-jdk-alpine3.10
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 ENV GHIDRA_REPOS_PATH /svr/repositories
 ENV GHIDRA_INSTALL_PATH /opt
-ENV GHIDRA_VERSION 9.0.4
-ENV GHIDRA_SHA_256 a50d0cd475d9377332811eeae66e94bdc9e7d88e58477c527e9c6b78caec18bf
-
-ENV JAVA_11_URL https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
-ENV JAVA_DIR_NAME jdk-11.0.2
-ENV JAVA_HOME /usr/lib/jvm/${JAVA_DIR_NAME}
+ENV GHIDRA_RELEASE_URL https://ghidra-sre.org/ghidra_9.1-BETA_DEV_20190923.zip
+ENV GHIDRA_VERSION 9.1-BETA_DEV
+ENV GHIDRA_SHA_256 3d61de711b7ea18bdee3ed94c31429e4946603b3e7d082cca5e949bbd651f051
 
 # Create ghidra user.
-RUN useradd -m ghidra && \
-    adduser ghidra sudo && \
-    echo "ghidra:password" | chpasswd && \
-    usermod -aG sudo ghidra
+RUN addgroup -S ghidra && \
+    adduser --disabled-password -S ghidra -G ghidra
 
-RUN apt-get update && apt-get install -y \
-    wget \
+RUN apk add --update --no-cache wget \
     unzip \
-    sudo 
-
-# Install Java 11.
-RUN cd /home/ghidra && \
-    wget --progress=bar:force -O openjdk.tar.gz ${JAVA_11_URL} && \
-    mkdir /usr/lib/jvm && \
-    tar -xzf openjdk.tar.gz --directory /usr/lib/jvm && \
-    rm openjdk.tar.gz && \
-    echo "/usr/lib/jvm/${JAVA_DIR_NAME}/bin:${PATH}" > /etc/environment
-ENV PATH "/usr/lib/jvm/${JAVA_DIR_NAME}/bin:${PATH}"
+    bash
 
 # Get Ghidra.
-RUN cd ${GHIDRA_INSTALL_PATH} && \
-    wget --progress=bar:force -O ghidra_${GHIDRA_VERSION}.zip https://ghidra-sre.org/ghidra_9.0.4_PUBLIC_20190516.zip && \
-    sha256sum ghidra_${GHIDRA_VERSION}.zip | awk '{print $1}' | grep -q $GHIDRA_SHA_256 && \
+WORKDIR ${GHIDRA_INSTALL_PATH}
+RUN wget --progress=bar:force -O ghidra_${GHIDRA_VERSION}.zip ${GHIDRA_RELEASE_URL} && \
+    echo "${GHIDRA_SHA_256}  ghidra_${GHIDRA_VERSION}.zip" | sha256sum -c - && \
     unzip ghidra_${GHIDRA_VERSION}.zip && \
     mv ghidra_${GHIDRA_VERSION} ghidra && \
     rm ghidra_${GHIDRA_VERSION}.zip && \
@@ -45,7 +30,7 @@ RUN cd ${GHIDRA_INSTALL_PATH}/ghidra/server && \
     cp server.conf server.conf.bak && \
     mkdir -p ${GHIDRA_REPOS_PATH} && \
     sed 's|ghidra.repositories.dir=.*|ghidra.repositories.dir='"${GHIDRA_REPOS_PATH}"'|' server.conf.bak > server.conf && \
-    echo password | sudo -S "PATH=$PATH" ${GHIDRA_INSTALL_PATH}/ghidra/server/svrInstall && \
+    echo password | ${GHIDRA_INSTALL_PATH}/ghidra/server/svrInstall && \
     chown -R ghidra: ${GHIDRA_REPOS_PATH} && \
     cd /home/ghidra && \
     ln -s ${GHIDRA_INSTALL_PATH}/ghidra/server/svrAdmin svrAdmin && \
@@ -55,6 +40,8 @@ RUN cd ${GHIDRA_INSTALL_PATH}/ghidra/server && \
     ln -s ${GHIDRA_INSTALL_PATH}/ghidra/server/ghidraSvr ghidraSvr 
 
 VOLUME ${GHIDRA_REPOS_PATH}
+
+COPY --chown=ghidra:ghidra start_server.sh /home/ghidra
 
 # Setup user environment.
 USER ghidra
@@ -66,5 +53,4 @@ EXPOSE 13100
 EXPOSE 13101
 EXPOSE 13102
 
-COPY --chown=ghidra:ghidra start_server.sh /home/ghidra
 ENTRYPOINT [ "./start_server.sh" ]

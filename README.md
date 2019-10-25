@@ -5,9 +5,14 @@ Ghidra (pronounced Gee-druh) is a software reverse engineering suite of tools de
 
 ## Server Setup
 ```
-docker pull 0xf15h/ghidra
-docker run --network="host" -it -p 13100:13100 0xf15h/ghidra
+docker pull 0xf15h/ghidra:<tag>
+docker run --network="host" -it -p 13100:13100 0xf15h/ghidra:<tag>
 ```
+
+| Ghidra Version | Docker Tag |
+|----------------|------------|
+| 9.1 BETA       | latest     |
+| <= 9.0.4       | 9.0.4      |
 
 ## Adding Users
 ```

@@ -28,9 +28,9 @@ RUN wget --progress=bar:force -O ghidra_${GHIDRA_VERSION}.zip ${GHIDRA_RELEASE_U
 
 # Install Ghidra server.
 RUN cd ${GHIDRA_INSTALL_PATH}/ghidra/server && \
-    cp server.conf server.conf.bak && \
     mkdir -p ${GHIDRA_REPOS_PATH} && \
-    sed 's|ghidra.repositories.dir=.*|ghidra.repositories.dir='"${GHIDRA_REPOS_PATH}"'|' server.conf.bak > server.conf && \
+    sed 's|ghidra.repositories.dir=.*|ghidra.repositories.dir='"${GHIDRA_REPOS_PATH}"'|' server.conf > ${GHIDRA_REPOS_PATH}/server.conf && \
+    rm server.conf && ln -s ${GHIDRA_REPOS_PATH}/server.conf server.conf && \
     ${GHIDRA_INSTALL_PATH}/ghidra/server/svrInstall && \
     chown -R ghidra: ${GHIDRA_REPOS_PATH} && \
     cd /home/ghidra && \

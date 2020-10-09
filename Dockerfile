@@ -4,9 +4,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ENV GHIDRA_REPOS_PATH /srv/repositories
 ENV GHIDRA_INSTALL_PATH /opt
-ENV GHIDRA_RELEASE_URL https://ghidra-sre.org/ghidra_9.1_PUBLIC_20191023.zip
-ENV GHIDRA_VERSION 9.1_PUBLIC
-ENV GHIDRA_SHA_256 29d130dfe85da6ec45dfbf68a344506a8fdcc7cfe7f64a3e7ffb210052d1875e
+ENV GHIDRA_RELEASE_URL https://ghidra-sre.org/ghidra_9.1.2_PUBLIC_20200212.zip
+ENV GHIDRA_VERSION 9.1.2_PUBLIC
+ENV GHIDRA_SHA_256 ebe3fa4e1afd7d97650990b27777bb78bd0427e8e70c1d0ee042aeb52decac61
 
 # Create ghidra user.
 RUN addgroup -S ghidra && \

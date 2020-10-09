@@ -1,4 +1,4 @@
-FROM openjdk:14-jdk-alpine3.10
+FROM openjdk:16-jdk-alpine3.12
 
 ENV DEBIAN_FRONTEND=noninteractive
 

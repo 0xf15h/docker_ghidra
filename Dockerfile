@@ -47,6 +47,8 @@ USER ghidra
 WORKDIR /home/ghidra
 ENV HOME /home/ghidra
 
+COPY server.conf ${GHIDRA_INSTALL_PATH}/ghidra/server/server.conf
+
 # Ghidra's default ports.
 EXPOSE 13100
 EXPOSE 13101

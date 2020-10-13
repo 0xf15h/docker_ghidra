@@ -30,7 +30,8 @@ RUN wget --progress=bar:force -O ghidra_${GHIDRA_VERSION}.zip ${GHIDRA_RELEASE_U
 RUN cd ${GHIDRA_INSTALL_PATH}/ghidra/server && \
     mkdir -p ${GHIDRA_REPOS_PATH} && \
     sed 's|ghidra.repositories.dir=.*|ghidra.repositories.dir='"${GHIDRA_REPOS_PATH}"'|' server.conf > ${GHIDRA_REPOS_PATH}/server.conf && \
-    rm server.conf && ln -s ${GHIDRA_REPOS_PATH}/server.conf server.conf && \
+    rm server.conf && \
+    ln -s ${GHIDRA_REPOS_PATH}/server.conf server.conf && \
     ${GHIDRA_INSTALL_PATH}/ghidra/server/svrInstall && \
     chown -R ghidra: ${GHIDRA_REPOS_PATH} && \
     cd /home/ghidra && \

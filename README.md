@@ -14,6 +14,7 @@ docker run --network="host" -it -p 13100-13102:13100-13102 0xf15h/ghidra:<tag>
 
 | Ghidra Version | Docker Tag |
 |----------------|------------|
+| 9.2            | 9.2        |
 | 9.1.2          | 9.1.2      |
 | 9.1            | 9.1        |
 | 9.1 BETA       | 9.1_beta   |

@@ -3,7 +3,7 @@
 # Docker Ghidra
 
 [![Docker Cloud Build](https://img.shields.io/docker/cloud/build/0xf15h/ghidra.svg?style=popout)](https://hub.docker.com/r/0xf15h/ghidra) [![Docker Pulls](https://img.shields.io/docker/pulls/0xf15h/ghidra.svg?style=popout)](https://hub.docker.com/r/0xf15h/ghidra) [![License](https://img.shields.io/github/license/0xf15h/docker_ghidra.svg?style=popout)](https://hub.docker.com/r/0xf15h/ghidra)  
-Ghidra (pronounced Gee-druh) is a software reverse engineering suite of tools developed by the NSA. One of Ghidra's tools is a version tracking system that enables collaborative reversing. This Docker image simplifies the setup and configuration process for people who want a production ready install without modifying their host system.
+Ghidra (pronounced Gee-druh) is a software reverse engineering suite of tools developed by the NSA. One of Ghidra's tools is a version control system that enables collaborative reversing. This Docker image simplifies the setup and configuration process for people who want a production ready Ghidra Server, without heavily modifying their host system.
 
 ## Server Setup
 
